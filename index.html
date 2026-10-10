@@ -1,1 +1,95 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff7f2">
+<title>Study Bloom 🌷</title>
+<style>
+:root{--pink:#eaa7b8;--rose:#b95d7b;--cream:#fff8f0;--ink:#493b43;--muted:#8b7a82;--card:#fffdfb;--line:#f0dfe2;--green:#7a9a82}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff4f5 0,#fffaf3 330px,#fffaf3 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+header{padding:26px 18px 16px;max-width:900px;margin:auto} .eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:700}
+h1{font-size:32px;margin:7px 0 5px;letter-spacing:-1px}header p{margin:0;color:var(--muted)}
+nav{display:flex;gap:8px;overflow:auto;padding:10px 16px 15px;max-width:900px;margin:auto;scrollbar-width:none}
+nav button{white-space:nowrap;border:1px solid var(--line);background:#fffdfb;color:var(--ink);padding:10px 14px;border-radius:99px;font-size:14px}
+nav button.active{background:var(--rose);color:white;border-color:var(--rose)}
+main{max-width:900px;margin:auto;padding:0 16px 42px}.panel{display:none}.panel.active{display:block}
+.card{background:rgba(255,253,251,.95);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 5px 18px #b95d7b0a}
+.hero{background:linear-gradient(135deg,#f8dbe3,#fff0d9);border:0;padding:22px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0;color:#795965;line-height:1.5}
+h2{font-size:20px;margin:0 0 12px}h3{font-size:16px;margin:0 0 8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#fff9f7;border:1px solid var(--line);border-radius:15px;padding:13px 10px}.stat strong{display:block;font-size:23px;color:var(--rose)}.stat span{font-size:12px;color:var(--muted)}
+input,textarea,select{width:100%;border:1px solid #e9d7dd;background:#fffefa;border-radius:12px;padding:12px;color:var(--ink);font:inherit;margin:5px 0 10px}textarea{min-height:120px;resize:vertical}label{display:block;font-size:13px;font-weight:650;color:#755e68;margin-top:5px}
+button.primary,.primary{border:0;background:var(--rose);color:white;padding:12px 16px;border-radius:12px;font:inherit;font-weight:650;cursor:pointer}button.secondary{border:1px solid var(--line);background:#fff7f5;color:var(--ink);padding:10px 13px;border-radius:12px;font:inherit;cursor:pointer}button:active{transform:scale(.99)}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.small{font-size:12px;color:var(--muted);line-height:1.5}.item{padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.item p{margin:5px 0;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}.item button{margin:4px 5px 0 0}.checkrow{display:flex;gap:10px;align-items:center}.checkrow input{width:auto;margin:0}.done{text-decoration:line-through;opacity:.6}
+.timer{font-size:54px;text-align:center;font-variant-numeric:tabular-nums;font-weight:750;letter-spacing:2px;padding:18px 0;color:var(--rose)}.center{text-align:center}
+.quiz-option{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fffaf7;border-radius:12px;padding:12px;margin:8px 0;color:var(--ink);font:inherit}.quiz-option:disabled{opacity:.8}.feedback{padding:12px;border-radius:12px;background:#fff0f3;margin-top:10px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 26px}
+@media(min-width:650px){header{padding-top:38px}.stats{gap:14px}.card{padding:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">your gentle study corner</div>
+  <h1>Study Bloom 🌷</h1>
+  <p>Little steps, lovely progress.</p>
+</header>
+<nav aria-label="Main navigation">
+<button class="active" data-tab="home">🏡 Home</button><button data-tab="notes">📝 Notes</button><button data-tab="quiz">🧠 Quiz</button><button data-tab="planner">🌷 Planner</button><button data-tab="timer">⏳ Focus</button><button data-tab="ai">✨ AI helper</button>
+</nav>
+<main>
+<section class="panel active" id="home">
+ <div class="card hero"><h2>Welcome to your study space ✨</h2><p>You don't have to do everything today. Just begin with one small step.</p></div>
+ <div class="card"><h2>Your progress</h2><div class="stats"><div class="stat"><strong id="statTasks">0</strong><span>Tasks completed</span></div><div class="stat"><strong id="statNotes">0</strong><span>Saved notes</span></div><div class="stat"><strong id="statSessions">0</strong><span>Focus sessions</span></div></div></div>
+ <div class="card"><h2>Today's checklist</h2><div id="homeTasks" class="small">Add tasks in Planner to see them here.</div><button class="secondary" onclick="showTab('planner')">Open planner →</button></div>
+ <div class="card"><h2>A tiny reminder 💗</h2><p class="small">Progress is built from practice, breaks, and asking for help when you need it. Your planner is a guide, not a rulebook.</p></div>
+</section>
+<section class="panel" id="notes">
+ <div class="card"><h2>📝 Your notes</h2><label for="noteTitle">Title / subject</label><input id="noteTitle" placeholder="e.g. Biology — Cell: The Unit of Life"><label for="noteBody">Note</label><textarea id="noteBody" placeholder="Write key points, formulas, questions, or reminders..."></textarea><button class="primary" id="saveNote">Save note</button><p class="small">Notes are saved in this browser on this device. Export or back them up before clearing browser data.</p></div>
+ <div class="card"><h2>Saved notes</h2><div id="notesList" class="small">Your saved notes will appear here.</div></div>
+</section>
+<section class="panel" id="quiz">
+ <div class="card"><h2>🧠 Quick practice quiz</h2><p class="small">Sample science questions to try the quiz feature. You can ask the AI helper to make more questions on your own chapters.</p><div id="quizArea"></div></div>
+</section>
+<section class="panel" id="planner">
+ <div class="card"><h2>🌷 Study planner</h2><label for="taskText">What do you want to work on?</label><input id="taskText" placeholder="e.g. Revise Newton's laws"><div class="row"><div><label for="taskSubject">Subject</label><input id="taskSubject" placeholder="e.g. Physics"></div><div><label for="taskDate">Date</label><input id="taskDate" type="date"></div></div><button class="primary" id="addTask">Add task</button></div>
+ <div class="card"><h2>Your tasks</h2><div id="tasksList" class="small">No tasks yet. Add one small goal above.</div></div>
+</section>
+<section class="panel" id="timer">
+ <div class="card center"><h2>⏳ Focus timer</h2><p class="small">Choose a gentle focus session. Take a break whenever you need one.</p><div class="row"><button class="secondary" onclick="setTimer(25)">25 min focus</button><button class="secondary" onclick="setTimer(5)">5 min break</button><button class="secondary" onclick="setTimer(15)">15 min focus</button></div><div class="timer" id="clock">25:00</div><div class="row"><button class="primary" id="timerStart">Start</button><button class="secondary" id="timerReset">Reset</button></div><p id="timerMessage" class="small">Ready when you are 🌸</p></div>
+ <div class="card"><h2>Focus sessions completed</h2><p><strong id="sessionCount">0</strong> sessions recorded on this device.</p></div>
+</section>
+<section class="panel" id="ai">
+ <div class="card"><h2>✨ AI study helper</h2><p class="small">This free starter uses ChatGPT as an external helper; it doesn't include a built-in AI API. Copy a prompt below, then open ChatGPT and paste it. Don't include private information.</p><label for="aiSubject">Subject / chapter</label><input id="aiSubject" placeholder="e.g. Class 11 Chemistry — Structure of Atom"><label for="aiNeed">What do you need?</label><select id="aiNeed"><option value="Make 10 multiple-choice questions with answers and explanations">Make a quiz</option><option value="Explain the topic simply with examples">Explain simply</option><option value="Create flashcards with question on one side and answer on the other">Make flashcards</option><option value="Make a realistic revision plan for this chapter">Make a revision plan</option><option value="Summarise the key concepts and common mistakes">Summarise key points</option></select><button class="primary" id="makePrompt">Create my prompt</button><label for="aiPrompt">Your prompt</label><textarea id="aiPrompt" placeholder="Your ready-to-copy prompt will appear here..."></textarea><div class="row"><button class="secondary" id="copyPrompt">Copy prompt</button><button class="secondary" onclick="window.open('https://chatgpt.com/','_blank','noopener')">Open ChatGPT ↗</button></div><p id="copyStatus" class="small"></p></div>
+</section>
+</main>
+<footer>Made with care for your learning 🌷 · Starter version</footer>
+<script>
+const $=id=>document.getElementById(id);
+const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem('studyBloom_'+key))??fallback}catch(e){return fallback}};
+const save=(key,val)=>{try{localStorage.setItem('studyBloom_'+key,JSON.stringify(val))}catch(e){alert('Could not save in this browser. Please keep a backup.')}};
+let notes=load('notes',[]),tasks=load('tasks',[]),sessions=load('sessions',0);
+function showTab(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function renderNotes(){const el=$('notesList');el.innerHTML='';if(!notes.length){el.textContent='Your saved notes will appear here.';return}notes.forEach((n,i)=>{const d=document.createElement('div');d.className='item';const h=document.createElement('h3');h.textContent=n.title;const p=document.createElement('p');p.textContent=n.body;const b=document.createElement('button');b.className='secondary';b.textContent='Delete';b.onclick=()=>{if(confirm('Delete this note?')){notes.splice(i,1);save('notes',notes);renderNotes();renderStats()}};d.append(h,p,b);el.append(d)})}
+$('saveNote').onclick=()=>{const title=$('noteTitle').value.trim(),body=$('noteBody').value.trim();if(!title||!body){alert('Add a title and some note text first.');return}notes.unshift({title,body});save('notes',notes);$('noteTitle').value='';$('noteBody').value='';renderNotes();renderStats();alert('Note saved 🌷')};
+function renderTasks(){const el=$('tasksList'),home=$('homeTasks');el.innerHTML='';home.innerHTML='';if(!tasks.length){el.textContent='No tasks yet. Add one small goal above.';home.textContent='Add tasks in Planner to see them here.';return}tasks.forEach((t,i)=>{const d=document.createElement('div');d.className='item';const row=document.createElement('div');row.className='checkrow';const cb=document.createElement('input');cb.type='checkbox';cb.checked=t.done;cb.setAttribute('aria-label','Mark task complete');cb.onchange=()=>{tasks[i].done=cb.checked;save('tasks',tasks);renderTasks();renderStats()};const label=document.createElement('div');label.className=t.done?'done':'';const strong=document.createElement('strong');strong.textContent=t.text;const meta=document.createElement('div');meta.className='small';meta.textContent=[t.subject,t.date].filter(Boolean).join(' · ');label.append(strong,meta);row.append(cb,label);const del=document.createElement('button');del.className='secondary';del.textContent='Delete';del.onclick=()=>{tasks.splice(i,1);save('tasks',tasks);renderTasks();renderStats()};d.append(row,del);el.append(d);
+if(!t.done){const hd=document.createElement('div');hd.className='item checkrow';const hc=document.createElement('input');hc.type='checkbox';hc.checked=false;hc.onchange=()=>{tasks[i].done=true;save('tasks',tasks);renderTasks();renderStats()};const ht=document.createElement('span');ht.textContent=t.text+(t.subject?' · '+t.subject:'');hd.append(hc,ht);home.append(hd)}
+});if(!home.children.length)home.textContent='Everything on your list is done — lovely work!'}
+$('addTask').onclick=()=>{const text=$('taskText').value.trim();if(!text){alert('Write a task first.');return}tasks.push({text,subject:$('taskSubject').value.trim(),date:$('taskDate').value,done:false});save('tasks',tasks);$('taskText').value='';$('taskSubject').value='';renderTasks();renderStats()};
+function renderStats(){$('statTasks').textContent=tasks.filter(t=>t.done).length;$('statNotes').textContent=notes.length;$('statSessions').textContent=sessions;$('sessionCount').textContent=sessions}
+const questions=[{q:'Which cell structure is often called the powerhouse of the cell?',a:['Ribosome','Mitochondrion','Golgi apparatus','Nucleus'],correct:1,why:'Mitochondria release usable energy through cellular respiration.'},{q:'What is the SI unit of force?',a:['Joule','Watt','Newton','Pascal'],correct:2,why:'Force is measured in newtons (N).'}, {q:'Which process do green plants use to make sugars using light?',a:['Fermentation','Photosynthesis','Diffusion','Transpiration'],correct:1,why:'Photosynthesis uses light energy to help make sugars from carbon dioxide and water.'}];
+let qi=0,score=0,answered=false;
+function renderQuiz(){const el=$('quizArea');el.innerHTML='';if(qi>=questions.length){const h=document.createElement('h3');h.textContent='Quiz complete!';const p=document.createElement('p');p.textContent='You scored '+score+' out of '+questions.length+'. Try again to practise.';const b=document.createElement('button');b.className='primary';b.textContent='Try again';b.onclick=()=>{qi=0;score=0;answered=false;renderQuiz()};el.append(h,p,b);return}
+const q=questions[qi],h=document.createElement('h3');h.textContent='Question '+(qi+1)+' of '+questions.length;const p=document.createElement('p');p.textContent=q.q;el.append(h,p);q.a.forEach((a,i)=>{const b=document.createElement('button');b.className='quiz-option';b.textContent=a;b.disabled=answered;b.onclick=()=>{if(answered)return;answered=true;if(i===q.correct)score++;const f=document.createElement('div');f.className='feedback';f.textContent=(i===q.correct?'Correct! 🌷 ':'Not quite. ') + q.why;el.append(f);const next=document.createElement('button');next.className='primary';next.style.marginTop='10px';next.textContent=qi===questions.length-1?'See score':'Next question';next.onclick=()=>{qi++;answered=false;renderQuiz()};el.append(next);renderQuizButtonsDisable()};el.append(b)})}
+function renderQuizButtonsDisable(){document.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true)}
+$('taskDate').value=new Date().toISOString().slice(0,10);
+let total=25*60,left=total,interval=null;
+function clock(){const m=Math.floor(left/60),s=left%60;$('clock').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function setTimer(min){clearInterval(interval);interval=null;total=min*60;left=total;$('timerStart').textContent='Start';$('timerMessage').textContent='Ready when you are 🌸';clock()}
+$('timerStart').onclick=()=>{if(interval){clearInterval(interval);interval=null;$('timerStart').textContent='Resume';return}if(left<=0)left=total;$('timerStart').textContent='Pause';interval=setInterval(()=>{left--;clock();if(left<=0){clearInterval(interval);interval=null;$('timerStart').textContent='Start';$('timerMessage').textContent='Session complete — take a breath and stretch if you like! 🌷';sessions++;save('sessions',sessions);renderStats();if(navigator.vibrate)navigator.vibrate([150,80,150])}},1000)};
+$('timerReset').onclick=()=>setTimer(total/60);
+$('makePrompt').onclick=()=>{const subject=$('aiSubject').value.trim()||'my current study topic';$('aiPrompt').value='I am a student. Help me study '+subject+'. '+$('aiNeed').value+'. Keep the explanation age-appropriate, accurate, clear, and organised. Include an answer key and explanations where relevant. Do not assume my syllabus; ask me if you need clarification.';$('copyStatus').textContent='Prompt ready — copy it, then paste it into ChatGPT.'};
+$('copyPrompt').onclick=async()=>{const val=$('aiPrompt').value;if(!val){$('copyStatus').textContent='Create a prompt first.';return}try{await navigator.clipboard.writeText(val);$('copyStatus').textContent='Copied! Open ChatGPT and paste it.'}catch(e){$('aiPrompt').focus();$('aiPrompt').select();$('copyStatus').textContent='If Copy did not work, press and hold the selected text and choose Copy.'}};
+renderNotes();renderTasks();renderStats();renderQuiz();clock();
+</script>
+</body>
+</html>
